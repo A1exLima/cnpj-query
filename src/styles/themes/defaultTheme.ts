@@ -5,4 +5,6 @@ export const defaultTheme = {
   'Slate-Blue': '#435075',
   'Pale-Silver': '#CEC8C8',
   'Chinese-White': '#E0DCDC',
+  'Morning-Blue': '#909A99',
+  'white-color': '#ffff',
 }
