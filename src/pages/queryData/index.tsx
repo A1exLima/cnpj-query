@@ -1,5 +1,11 @@
-import { QueryDataContainer } from './style'
+import { Content, QueryDataContainer } from './style'
 
 export function QueryData() {
-  return <QueryDataContainer></QueryDataContainer>
+  return (
+    <QueryDataContainer>
+      <Content>
+        <h1>Consulta</h1>
+      </Content>
+    </QueryDataContainer>
+  )
 }

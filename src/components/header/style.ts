@@ -9,7 +9,7 @@ export const HeaderContainer = styled.header`
   position: sticky;
   width: 100%;
   background: ${({ theme }) => theme['Midnight-Blue']};
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  //box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `
 
 export const Content = styled.div`
