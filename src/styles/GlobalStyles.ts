@@ -41,6 +41,11 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 400;
   }
 
+  &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;

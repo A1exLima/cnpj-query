@@ -5,7 +5,11 @@ export const defaultTheme = {
   'Charcoal-Blue': '#1A2138',
   'Slate-Blue': '#435075',
   'Pale-Silver': '#CEC8C8',
+  'Pale-Silver-50': 'rgba(206, 200, 200, 0.5)',
   'Chinese-White': '#E0DCDC',
   'Morning-Blue': '#909A99',
   'white-color': '#ffff',
+  'Light-Gray': '#f9f9f9',
+  'check-green': '#5BBB7C',
+  'check-red': '#D3555C',
 }
