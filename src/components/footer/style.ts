@@ -3,6 +3,7 @@ import { styled } from 'styled-components'
 export const FooterContainer = styled.footer`
   width: 100%;
   background: ${({ theme }) => theme['Midnight-Blue']};
+  box-shadow: rgba(0, 0, 0, 0.35) 0px -1px 10px;
 `
 
 export const Content = styled.div`
@@ -37,17 +38,12 @@ export const Content = styled.div`
       font-weight: 400;
       font-family: var(--font-Roboto);
       color: ${({ theme }) => theme['Pale-Silver']};
-      filter: brightness(150%);
     }
 
     > svg {
       font-size: 2.2rem;
+      margin-top: 0.4rem;
       color: ${({ theme }) => theme['Pale-Silver']};
-      filter: brightness(150%);
-
-      @media (max-width: 768px) {
-        margin-top: 0.4rem;
-      }
     }
   }
 `

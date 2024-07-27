@@ -1,15 +1,12 @@
 import { styled } from 'styled-components'
 import { Link } from 'react-router-dom'
 
-interface PropsSideBar {
-  $toggleSidebar: boolean
-}
-
 export const HeaderContainer = styled.header`
   position: sticky;
+  z-index: 9999;
   width: 100%;
   background: ${({ theme }) => theme['Midnight-Blue']};
-  //box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 10px;
 `
 
 export const Content = styled.div`
@@ -88,15 +85,13 @@ export const Nav = styled.nav`
   }
 `
 
-export const SideBar = styled.nav<PropsSideBar>`
-  display: flex;
-  cursor: pointer;
+export const SideBar = styled.nav`
+  display: none;
 
-  @media (min-width: 768px) {
-    display: none;
-  }
-
-  > svg {
+  .open-button,
+  .close-button {
+    cursor: pointer;
+    display: flex;
     margin-top: 0.2rem;
     font-size: 4.5rem;
     color: ${({ theme }) => theme['Pale-Silver']};
@@ -108,49 +103,57 @@ export const SideBar = styled.nav<PropsSideBar>`
     }
   }
 
-  > div {
-    width: 100%;
-    height: calc(100vh - 8.4rem);
-    background: ${(props) => props.theme['Dark-Space-Blue']};
+  .menu-open {
+    right: 0;
+  }
 
-    display: ${({ $toggleSidebar }) => ($toggleSidebar ? 'flex' : 'none')};
-    align-items: flex-start;
+  @media (max-width: 768px) {
+    display: block;
+  }
+`
+
+export const MenuSideBar = styled.div`
+  background: ${({ theme }) => theme['Dark-Space-Blue-opacity']};
+
+  width: 100%;
+  height: 100vh;
+
+  position: fixed;
+  top: 8.5rem;
+  z-index: -1;
+  right: -100%;
+
+  transition: right 0.4s ease-out;
+
+  > ul {
+    margin-top: 7rem;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    padding-top: 10rem;
+    align-items: center;
+    gap: 1rem;
 
-    position: absolute;
-    top: 8.4rem;
-    left: 0;
-    z-index: -1;
+    > a {
+      color: ${({ theme }) => theme['Pale-Silver']};
 
-    > ul {
-      display: flex;
-      gap: 2rem;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      > a {
-        color: ${({ theme }) => theme['Pale-Silver']};
+      &.active {
+        color: ${({ theme }) => theme['white-color']};
+      }
 
-        &.active {
+      > li {
+        font-size: 2.6rem;
+        font-weight: 500;
+        font-family: var(--font-Roboto);
+        transition: color 0.4s ease-in-out;
+
+        &:hover {
           color: ${({ theme }) => theme['white-color']};
         }
-
-        > li {
-          font-size: 2.6rem;
-          font-weight: 500;
-          font-family: var(--font-Roboto);
-          transition: color 0.4s ease-in-out;
-
-          &:hover {
-            color: ${({ theme }) => theme['white-color']};
-          }
-        }
       }
+    }
 
-      > a:last-child > li {
-        margin-left: 0.6rem;
-      }
+    > a:last-child > li {
+      margin-left: 0.6rem;
     }
   }
 `

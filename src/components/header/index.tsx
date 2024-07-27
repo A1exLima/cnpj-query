@@ -1,24 +1,31 @@
-import { Brand, Content, HeaderContainer, Nav, SideBar } from './style'
+import {
+  Brand,
+  Content,
+  HeaderContainer,
+  MenuSideBar,
+  Nav,
+  SideBar,
+} from './style'
 import { NavLink } from 'react-router-dom'
 import { ImOffice } from 'react-icons/im'
-import { IoMenu } from 'react-icons/io5'
+import { IoMenu, IoClose } from 'react-icons/io5'
 import { useState } from 'react'
 
 export function Header() {
-  const [toggleSidebar, setToggleSidebar] = useState(false)
+  const [menuOpen, setMenuOpen] = useState<boolean>(false)
 
-  const handleToggleSidebar = () => {
-    setToggleSidebar((prevState) => !prevState)
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen)
   }
 
-  const closeSidebar = () => {
-    setToggleSidebar(false)
+  const waitAndCloseMenu = () => {
+    setMenuOpen(false)
   }
 
   return (
     <HeaderContainer>
       <Content>
-        <Brand to="/" onClick={closeSidebar}>
+        <Brand to="/" onClick={waitAndCloseMenu}>
           <ImOffice />
           <div>
             <h1>Consulta CNPJ</h1>
@@ -28,28 +35,32 @@ export function Header() {
 
         <Nav>
           <ul>
-            <NavLink to="/" onClick={closeSidebar}>
+            <NavLink to="/" onClick={waitAndCloseMenu}>
               <li>Home</li>
             </NavLink>
-            <NavLink to="/history" onClick={closeSidebar}>
+            <NavLink to="/history" onClick={waitAndCloseMenu}>
               <li>Histórico</li>
             </NavLink>
           </ul>
         </Nav>
 
-        <SideBar $toggleSidebar={toggleSidebar}>
-          <IoMenu onClick={handleToggleSidebar} />
+        <SideBar>
+          {!menuOpen ? (
+            <IoMenu className="open-button" onClick={toggleMenu} />
+          ) : (
+            <IoClose className="close-button" onClick={toggleMenu} />
+          )}
 
-          <div>
+          <MenuSideBar className={`${menuOpen ? 'menu-open' : ''}`}>
             <ul>
-              <NavLink to="/" onClick={closeSidebar}>
+              <NavLink to="/" onClick={waitAndCloseMenu}>
                 <li>Home</li>
               </NavLink>
-              <NavLink to="/history" onClick={closeSidebar}>
+              <NavLink to="/history" onClick={waitAndCloseMenu}>
                 <li>Histórico</li>
               </NavLink>
             </ul>
-          </div>
+          </MenuSideBar>
         </SideBar>
       </Content>
     </HeaderContainer>
