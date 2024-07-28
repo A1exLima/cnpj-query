@@ -1,6 +1,6 @@
 import { styled } from 'styled-components'
 
-export const QueryDataContainer = styled.main`
+export const QueryCnpjContainer = styled.main`
   flex: 1;
 `
 
@@ -9,8 +9,8 @@ export const Content = styled.article`
   margin: 0 auto;
   padding: 4rem;
 
-  display: flex;
-  justify-content: space-between;
+  //display: flex;
+  //justify-content: space-between;
 
   @media (max-width: 768px) {
     padding: 2rem;

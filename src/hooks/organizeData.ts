@@ -7,9 +7,9 @@ type CNPJCard = {
   situacaoCadastral: number
   dataAbertura: string
   naturezaJuridica: string
-  capitalSocial: number
-  optanteMei: boolean
-  optanteSimplesNacional: boolean
+  capitalSocial: number | string
+  optanteMei: boolean | string
+  optanteSimplesNacional: boolean | string
   email: string | null
   telefone: string
 }
@@ -39,6 +39,8 @@ interface InputPartner {
   data_entrada_sociedade: string
   qualificacao_socio: string
 }
+
+export type FormData = CNPJCard | Address | CNAE | Partner | InputPartner
 
 export interface OrganizeDataByBusinessRuleProps {
   id: string
@@ -75,12 +77,14 @@ export function organizeDataByBusinessRule(
       razaoSocial: data.razao_social,
       nomeFantasia: data.nome_fantasia,
       situacaoCadastral: data.situacao_cadastral,
-      dataAbertura: data.data_inicio_atividade,
+      dataAbertura: new Date(data.data_inicio_atividade).toLocaleDateString(
+        'pt-BR',
+      ),
       naturezaJuridica: data.natureza_juridica,
-      capitalSocial: data.capital_social,
-      optanteMei: data.opcao_pelo_mei,
-      optanteSimplesNacional: data.opcao_pelo_simples,
-      email: data.email,
+      capitalSocial: `R$${data.capital_social},00`,
+      optanteMei: data.opcao_pelo_mei ? 'Sim' : 'Não',
+      optanteSimplesNacional: data.opcao_pelo_simples ? 'Sim' : 'Não',
+      email: data.email.toLowerCase(),
       telefone: data.ddd_telefone_1,
     },
     address: {
@@ -97,7 +101,9 @@ export function organizeDataByBusinessRule(
     },
     partner: data.qsa.map((partner: InputPartner) => ({
       nome: partner.nome_socio,
-      dataEntrada: partner.data_entrada_sociedade,
+      dataEntrada: new Date(partner.data_entrada_sociedade).toLocaleDateString(
+        'pt-BR',
+      ),
       qualificacao: partner.qualificacao_socio,
     })),
   }

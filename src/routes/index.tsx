@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import { LayoutDefault } from '../layout'
 
 import { Home } from '../pages/home'
-import { QueryData } from '../pages/queryData'
+import { QueryCnpj } from '../pages/queryCnpj'
 import { History } from '../pages/history'
 
 export function Router() {
@@ -11,7 +11,7 @@ export function Router() {
     <Routes>
       <Route path="/" element={<LayoutDefault />}>
         <Route path="/" element={<Home />} />
-        <Route path="/query-data/:id" element={<QueryData />} />
+        <Route path="/query-cnpj/:id" element={<QueryCnpj />} />
         <Route path="/history" element={<History />} />
       </Route>
     </Routes>

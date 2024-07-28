@@ -51,7 +51,7 @@ export function Home() {
 
   // Efeito para realizar ações quando os dados da consulta do cnpj na API for retornado
   useEffect(() => {
-    // Condicional para verificar de foi recebido dados da API e se o retorno desses dados foi concluído por conta de ser uma função assíncrona
+    // Condicional para verificar se foi recebido dados da API e se o retorno desses dados foi concluído por conta de ser uma função assíncrona
     if (Object.keys(dataApi).length !== 0 && !loading) {
       // Organiza os dados conforme a regra de negócio
       const organizedData = organizeDataByBusinessRule(dataApi)
@@ -66,7 +66,7 @@ export function Home() {
       const id = organizedData.id
 
       // Navega para a rota com o ID da consulta organizada
-      navigate(`/query-data/${id}`)
+      navigate(`/query-cnpj/${id}`)
     }
   }, [dataApi, loading, navigate, dataBase])
 
