@@ -3,13 +3,25 @@ import { Banner, BannerAndCnpEntryContainer, CnpjEntry } from './style'
 import { TbReload } from 'react-icons/tb'
 import { FaCheck } from 'react-icons/fa'
 import { IoIosCloseCircle } from 'react-icons/io'
+import { LuLoader2 } from 'react-icons/lu'
 
-export function BannerAndCnpEntry() {
+interface BannerAndCnpjEntryProps {
+  consultCnpj: (cnpj: string) => void
+  alert: string
+  loading: boolean
+}
+
+export function BannerAndCnpjEntry({
+  consultCnpj,
+  alert,
+  loading,
+}: BannerAndCnpjEntryProps) {
   const [num1, setNum1] = useState(0)
   const [num2, setNum2] = useState(0)
   const [answer, setAnswer] = useState('')
   const [isButtonDisabled, setIsButtonDisabled] = useState(true)
-  const [cnpjValue, setCnpjValue] = useState('')
+  const [cnpjValue, setCnpjValue] = useState<string>('')
+  const [alertMessage, setAlertMessage] = useState<string>(alert)
 
   const generateRandomNumbers = () => {
     setNum1(Math.floor(Math.random() * 10))
@@ -37,12 +49,16 @@ export function BannerAndCnpEntry() {
     setIsButtonDisabled(true)
     setAnswer('')
     setCnpjValue('')
-    console.log(cnpjValue)
+    consultCnpj(cnpjValue)
   }
 
   useEffect(() => {
     generateRandomNumbers()
   }, [])
+
+  useEffect(() => {
+    setAlertMessage(alert)
+  }, [alert])
 
   return (
     <BannerAndCnpEntryContainer>
@@ -63,7 +79,9 @@ export function BannerAndCnpEntry() {
           placeholder="Digite o CNPJ"
           value={cnpjValue}
           onChange={handleCnpjValue}
+          onFocus={() => setAlertMessage('')}
         />
+        {alertMessage ? <span>{alertMessage}</span> : ''}
 
         <div>
           <label htmlFor="validate">
@@ -91,7 +109,7 @@ export function BannerAndCnpEntry() {
           disabled={isButtonDisabled}
           onClick={consultCnpjValue}
         >
-          Consultar
+          {loading ? <LuLoader2 /> : 'Consultar'}
         </button>
       </CnpjEntry>
     </BannerAndCnpEntryContainer>

@@ -4,11 +4,12 @@ interface CnpjEntryProps {
   $colorCheck: boolean
 }
 
-export const BannerAndCnpEntryContainer = styled.article`
+export const BannerAndCnpEntryContainer = styled.section`
   width: 100%;
   border-radius: 2rem;
   padding: 4rem;
   background-color: ${({ theme }) => theme['Midnight-Blue']};
+  margin-top: 4rem;
 
   display: flex;
   align-items: center;
@@ -112,6 +113,14 @@ export const CnpjEntry = styled.section<CnpjEntryProps>`
     display: none;
   }
 
+  > span {
+    margin-top: -0.5rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    font-family: var(--font-Roboto);
+    color: ${({ theme }) => theme['check-red']};
+  }
+
   > div {
     background: ${({ theme }) => theme['Light-Gray']};
     box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 5px;
@@ -175,6 +184,10 @@ export const CnpjEntry = styled.section<CnpjEntryProps>`
   }
 
   > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     background-color: ${({ theme }) => theme['Midnight-Blue']};
     border: none;
     margin-top: 1.5rem;
@@ -198,6 +211,22 @@ export const CnpjEntry = styled.section<CnpjEntryProps>`
 
     &:disabled {
       cursor: not-allowed;
+    }
+
+    > svg {
+      font-size: 2.4rem;
+      color: ${({ theme }) => theme['Chinese-White']};
+
+      animation: spin 0.4s infinite linear;
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
     }
   }
 `
