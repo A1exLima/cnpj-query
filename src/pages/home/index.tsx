@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { BannerAndCnpjEntry } from '../../components/bannerAndCnpEntry'
 
+import { organizeDataByBusinessRule } from '../../hooks/organizeData'
+
 // Componente principal da página Home
 export function Home() {
   // Estado para armazenar os dados da resposta da API
@@ -46,8 +48,14 @@ export function Home() {
   // Efeito para realizar ações quando os dados da consulta mudarem
   useEffect(() => {
     if (Object.keys(data).length !== 0 && !loading) {
-      // Irá chamar a função para organizar os dados, retornando os dados na estrutura solicitada para a regra de negócio.
+      // Chama a função para organizar os dados, retornando-os na estrutura solicitada para a regra de negócio.
+      const organizedData = organizeDataByBusinessRule(data)
+      console.log(organizedData)
+
       // Captura o ID da consulta do array de objeto
+      const id = organizedData.id
+      console.log(id)
+
       // Salva no localStorage
       // Passa o ID da consulta para o navigate
       navigate('/query-data')
