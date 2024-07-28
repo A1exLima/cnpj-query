@@ -11,7 +11,7 @@ export function Router() {
     <Routes>
       <Route path="/" element={<LayoutDefault />}>
         <Route path="/" element={<Home />} />
-        <Route path="/query-data" element={<QueryData />} />
+        <Route path="/query-data/:id" element={<QueryData />} />
         <Route path="/history" element={<History />} />
       </Route>
     </Routes>

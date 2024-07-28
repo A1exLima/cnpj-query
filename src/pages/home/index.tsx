@@ -2,15 +2,19 @@ import { Content, HomeContainer, WarningMessage } from './style'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { organizeDataByBusinessRule } from '../../hooks/organizeData'
 
 import { BannerAndCnpjEntry } from '../../components/bannerAndCnpEntry'
 
-import { organizeDataByBusinessRule } from '../../hooks/organizeData'
-
 // Componente principal da página Home
 export function Home() {
+  // Estado para armazenar os dados do localStorage que está simulando um banco de dados
+  const [dataBase] = useState(() => {
+    const storedData = localStorage.getItem('cnpjQuery-database')
+    return storedData ? JSON.parse(storedData) : []
+  })
   // Estado para armazenar os dados da resposta da API
-  const [data, setData] = useState<object>({})
+  const [dataApi, setDataApi] = useState<object>({})
   // Estado para armazenar a mensagem de alerta
   const [alertMessage, setAlertMessage] = useState<string>('')
   // Estado para indicar se a consulta está em andamento
@@ -28,12 +32,12 @@ export function Home() {
         `https://brasilapi.com.br/api/cnpj/v1/${cnpjValue}`,
       )
       // Armazena os dados da resposta no estado
-      setData(response.data)
+      setDataApi(response.data)
     } catch (error) {
       // Define uma mensagem de alerta em caso de erro
       setAlertMessage('Verifique o CNPJ digitado!')
       // Reseta o estado de dados
-      setData({})
+      setDataApi({})
     } finally {
       // Define o estado de carregamento como falso ao concluir o processo assíncrono de requisição http feita pelo Axios
       setLoading(false)
@@ -45,22 +49,26 @@ export function Home() {
     cnpjFetchDataApi(cnpj)
   }
 
-  // Efeito para realizar ações quando os dados da consulta mudarem
+  // Efeito para realizar ações quando os dados da consulta do cnpj na API for retornado
   useEffect(() => {
-    if (Object.keys(data).length !== 0 && !loading) {
-      // Chama a função para organizar os dados, retornando-os na estrutura solicitada para a regra de negócio.
-      const organizedData = organizeDataByBusinessRule(data)
-      console.log(organizedData)
+    // Condicional para verificar de foi recebido dados da API e se o retorno desses dados foi concluído por conta de ser uma função assíncrona
+    if (Object.keys(dataApi).length !== 0 && !loading) {
+      // Organiza os dados conforme a regra de negócio
+      const organizedData = organizeDataByBusinessRule(dataApi)
 
-      // Captura o ID da consulta do array de objeto
+      // Salva os dados organizados no localStorage em conjunto com os dados já armazenados
+      localStorage.setItem(
+        'cnpjQuery-database',
+        JSON.stringify([...dataBase, organizedData]),
+      )
+
+      // Captura o ID da consulta de dados já organizada
       const id = organizedData.id
-      console.log(id)
 
-      // Salva no localStorage
-      // Passa o ID da consulta para o navigate
-      navigate('/query-data')
+      // Navega para a rota com o ID da consulta organizada
+      navigate(`/query-data/${id}`)
     }
-  }, [data, loading, navigate])
+  }, [dataApi, loading, navigate, dataBase])
 
   // Renderização do componente
   return (

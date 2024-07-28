@@ -1,7 +1,6 @@
 import { format } from 'date-fns'
 
 // Definição dos tipos de dados utilizados
-
 type CNPJCard = {
   razaoSocial: string
   nomeFantasia: string
@@ -41,7 +40,7 @@ interface InputPartner {
   qualificacao_socio: string
 }
 
-interface OrganizeDataByBusinessRuleProps {
+export interface OrganizeDataByBusinessRuleProps {
   id: string
   dateAndTimeCreated: string
   updatedDateAndTime: string | null
