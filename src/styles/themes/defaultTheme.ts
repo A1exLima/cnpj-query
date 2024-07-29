@@ -1,15 +1,17 @@
 export const defaultTheme = {
   'Midnight-Blue': '#222B45',
   'Dark-Space-Blue': '#151A30',
-  'Dark-Space-Blue-opacity': 'rgba(21, 26, 48, 0.8)',
+  'Dark-Space-Blue-opacity': 'rgba(21, 26, 48, 0.9)',
   'Charcoal-Blue': '#1A2138',
   'Slate-Blue': '#435075',
   'Pale-Silver': '#CEC8C8',
   'Pale-Silver-50': 'rgba(206, 200, 200, 0.5)',
+  'steel-blue': '#43485B',
   'Chinese-White': '#E0DCDC',
   'Morning-Blue': '#909A99',
   'white-color': '#ffff',
   'Light-Gray': '#f9f9f9',
   'check-green': '#5BBB7C',
+  'button-edit': '#FAB70B',
   'check-red': '#D3555C',
 }

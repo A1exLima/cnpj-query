@@ -2,6 +2,7 @@ import { styled } from 'styled-components'
 
 interface FormContainerProps {
   $displayGrid: boolean
+  $buttonColorEdit: boolean
 }
 
 export const FormContainer = styled.div<FormContainerProps>`
@@ -31,10 +32,10 @@ export const FormContainer = styled.div<FormContainerProps>`
         background: none;
         cursor: pointer;
 
-        transition: filter 0.2s ease-out;
+        transition: transform 0.2s ease-out;
 
         &:hover {
-          filter: brightness(150%);
+          transform: scale(1.1);
         }
 
         > svg {
@@ -42,6 +43,19 @@ export const FormContainer = styled.div<FormContainerProps>`
           font-size: 2.7rem;
           color: ${({ theme }) => theme['Pale-Silver']};
         }
+      }
+
+      > button:first-child > svg {
+        transition: color 0.2 ease-in-out;
+
+        &:hover {
+          color: ${({ theme }) => theme['check-green']};
+        }
+      }
+
+      > button:last-child > svg {
+        color: ${({ theme, $buttonColorEdit }) =>
+          $buttonColorEdit ? theme['button-edit'] : theme['Pale-Silver']};
       }
     }
   }
@@ -80,7 +94,13 @@ export const FormContainer = styled.div<FormContainerProps>`
         font-size: 1.6rem;
         font-weight: 400;
         font-family: var(--font-Roboto);
-        color: ${({ theme }) => theme['Charcoal-Blue']};
+        color: ${({ theme }) => theme['steel-blue']};
+        font-style: italic;
+
+        &:disabled {
+          font-style: normal;
+          color: ${({ theme }) => theme['Charcoal-Blue']};
+        }
       }
     }
 

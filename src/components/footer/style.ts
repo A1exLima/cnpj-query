@@ -42,7 +42,7 @@ export const Content = styled.div`
 
     > svg {
       font-size: 2.2rem;
-      margin-top: 0.4rem;
+      margin-top: 0.2rem;
       color: ${({ theme }) => theme['Pale-Silver']};
     }
   }

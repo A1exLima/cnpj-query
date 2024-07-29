@@ -2,7 +2,7 @@ import { styled } from 'styled-components'
 import { Link } from 'react-router-dom'
 
 export const HeaderContainer = styled.header`
-  position: sticky;
+  position: fixed;
   z-index: 9999;
   width: 100%;
   background: ${({ theme }) => theme['Midnight-Blue']};
@@ -119,7 +119,7 @@ export const MenuSideBar = styled.div`
   height: 100vh;
 
   position: fixed;
-  top: 8.5rem;
+  top: 8.4rem;
   z-index: -1;
   right: -100%;
 

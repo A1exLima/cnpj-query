@@ -2,6 +2,8 @@ import { format } from 'date-fns'
 
 // Definição dos tipos de dados utilizados
 type CNPJCard = {
+  id?: string
+  nameCard?: string
   razaoSocial: string
   nomeFantasia: string
   situacaoCadastral: number
@@ -15,6 +17,8 @@ type CNPJCard = {
 }
 
 type Address = {
+  id?: string
+  nameCard?: string
   logradouro: string
   numero: string
   bairro: string
@@ -24,17 +28,23 @@ type Address = {
 }
 
 type CNAE = {
+  id?: string
+  nameCard?: string
   principal: number
   descricaoPrincipal: string
 }
 
-type Partner = {
+export type Partner = {
+  id: string // Modificado para garantir unicidade
+  nameCard?: string
   nome: string
   dataEntrada: string
   qualificacao: string
 }
 
 interface InputPartner {
+  id?: string
+  nameCard?: string
   nome_socio: string
   data_entrada_sociedade: string
   qualificacao_socio: string
@@ -66,6 +76,14 @@ export function organizeDataByBusinessRule(
 
   // Formata a data atual no formato "dd/MM/yyyy 'às' HH:mm" (formato pt-BR)
   const formattedDate = format(currentDate, "dd/MM/yyyy 'às' HH:mm")
+
+  // Função para gerar IDs únicos para os sócios
+  let nextPartnerId = 1
+  const generatePartnerId = () => {
+    const partnerId = `partner-${nextPartnerId}`
+    nextPartnerId++
+    return partnerId
+  }
 
   // Dados organizados conforme a regra de negócio solicitada
   return {
@@ -100,6 +118,7 @@ export function organizeDataByBusinessRule(
       descricaoPrincipal: data.cnae_fiscal_descricao,
     },
     partner: data.qsa.map((partner: InputPartner) => ({
+      id: generatePartnerId(),
       nome: partner.nome_socio,
       dataEntrada: new Date(partner.data_entrada_sociedade).toLocaleDateString(
         'pt-BR',

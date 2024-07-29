@@ -2,6 +2,7 @@ import { styled } from 'styled-components'
 
 export const QueryCnpjContainer = styled.main`
   flex: 1;
+  margin-top: 8.5rem;
 `
 
 export const Content = styled.article`
