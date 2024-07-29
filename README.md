@@ -1,6 +1,7 @@
 ## 👨‍💻 Sobre o projeto
 
-Consulta CNPJ
+Consulta CNPJ:
+
 O projeto "Consulta CNPJ" foi criado para oferecer uma experiência intuitiva e dinâmica aos usuários, mantendo um design minimalista com cores suaves, ideal para ambientes de trabalho. Composto por três telas principais:
 
 Tela de Consulta:
@@ -64,7 +65,7 @@ Versão desktop
 ---
 
 <p align="center">
-  <a href="https://cnpjquery.netlify.app/"> <img width="700" src="/home.png"> <a/>
+  <a href="https://cnpjquery.netlify.app/"> <img width="700" src="public/home.png"> <a/>
 </p>
 
 ___
@@ -116,12 +117,6 @@ Re-optimizing dependencies because lockfile has changed
 ```
 
 ___
-
-## 🪪 Licença
-
-Esse projeto está sob a licença MIT.
-
----
 
 <p align="center"> created by Alex Lima  - © 2024 - Todos os direitos reservados.<p align="center">
  <a href="https://www.linkedin.com/in/a1exlima/" target="_blank"><img src="https://static.licdn.com/sc/h/5bukxbhy9xsil5mb7c2wulfbx" height="25" width="25" alt="Linked" />
