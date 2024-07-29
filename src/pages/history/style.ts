@@ -11,9 +11,25 @@ export const Content = styled.article`
   padding: 4rem;
 
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 
   @media (max-width: 768px) {
     padding: 2rem;
+  }
+
+  margin-bottom: 4rem;
+
+  > h2 {
+    font-size: 2.4rem;
+    font-weight: 600;
+    font-family: var(--font-Inter);
+    padding-bottom: 4rem;
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   }
 `

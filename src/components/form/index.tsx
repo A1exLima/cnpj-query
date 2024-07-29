@@ -70,8 +70,6 @@ export function Form({
       )
     }
 
-    console.log(updatedPartnerData)
-
     if (parsedData && formData) {
       // Atualizando os dados relevantes no localStorage
       const updatedData: OrganizeDataByBusinessRuleProps[] = parsedData.map(

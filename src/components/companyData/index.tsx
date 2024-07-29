@@ -13,7 +13,7 @@ export function CompanyData({ data }: CompanyDataProps) {
     <CompanyDataContainer>
       <div>
         {/* Exibe a data de criação do registro */}
-        <p>{`Criado: ${data.dateAndTimeCreated}`}</p>
+        <p>{`Criado: ${data.dateAndTimeCreated}h`}</p>
 
         {/* Exibe a data de atualização do registro, se disponível */}
         {data.updatedDateAndTime ? (
