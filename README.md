@@ -2,7 +2,9 @@
 
 Consulta CNPJ:
 
-O projeto "Consulta CNPJ" foi criado para oferecer uma experiência intuitiva e dinâmica aos usuários, mantendo um design minimalista com cores suaves, ideal para ambientes de trabalho. Composto por três telas principais:
+O projeto "Consulta CNPJ" foi criado para oferecer uma experiência intuitiva e dinâmica aos usuários, mantendo um design minimalista com cores suaves, ideal para ambientes de trabalho. 
+
+Composto por três telas principais:
 
 Tela de Consulta:
 
@@ -85,7 +87,7 @@ ___
 Entre na pasta raiz do repositório
 
 ```bash
-cd cnpjConsultation
+cd cnpj-query
 ```
 
 Instale as dependências necessárias
