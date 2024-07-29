@@ -4,7 +4,6 @@ import { OrganizeDataByBusinessRuleProps } from '../../hooks/organizeData'
 import { CardHistory } from '../../components/cardHistory'
 
 // Componente que exibe o histórico de consultas de CNPJ.
-
 export function History() {
   // Estado para armazenar os dados do histórico
   const [dataBase, setDataBase] = useState<OrganizeDataByBusinessRuleProps[]>(
@@ -17,7 +16,8 @@ export function History() {
     const storedData = localStorage.getItem('cnpjQuery-database')
     if (storedData) {
       // Converte os dados salvos de volta para o formato de array de objetos
-      setDataBase(JSON.parse(storedData))
+      const parsedData = JSON.parse(storedData)
+      setDataBase(parsedData.reverse())
     }
   }, [])
 
