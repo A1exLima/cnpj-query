@@ -1,6 +1,7 @@
 import { styled } from 'styled-components'
 
 export const CardContainer = styled.section`
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 10px;
   cursor: pointer;
   transition: filter 0.2s ease-in-out;
 
@@ -12,13 +13,14 @@ export const CardContainer = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
 
     background-color: ${({ theme }) => theme['Slate-Blue']};
-    border-radius: 0.5rem 0.5rem 0 0;
-    padding: 1.5rem 2rem;
+    border-radius: 0.3rem 0.3rem 0 0;
+    padding: 1.5rem 2rem 1rem 2rem;
 
     > h3 {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       font-weight: 600;
       font-family: var(--font-Inter);
       color: ${({ theme }) => theme['Pale-Silver']};
@@ -41,7 +43,7 @@ export const CardContainer = styled.section`
     background-color: ${({ theme }) => theme['Pale-Silver']};
     color: ${({ theme }) => theme['Charcoal-Blue']};
     padding: 1.5rem 2rem;
-    border-radius: 0 0 0.5rem 0.5rem;
+    border-radius: 0 0 0.3rem 0.3rem;
 
     > div {
       display: flex;
