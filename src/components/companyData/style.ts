@@ -1,6 +1,6 @@
 import { styled } from 'styled-components'
 
-export const CompanyDataContainer = styled.article`
+export const CompanyDataContainer = styled.section`
   > div:first-child {
     display: flex;
     flex-direction: row-reverse;

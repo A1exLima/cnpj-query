@@ -17,7 +17,10 @@ export function CardHistory({ data }: CardHistoryProps) {
   }
 
   return (
-    <CardContainer onClick={handleClickCard}>
+    <CardContainer
+      onClick={handleClickCard}
+      title="Clique para visualizar ou editar a consulta"
+    >
       <div>
         <h3>EMPRESA CONSULTADA:</h3>
         <div>

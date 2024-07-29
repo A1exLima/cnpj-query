@@ -35,6 +35,7 @@ export const CardContainer = styled.section`
         font-size: 1.4rem;
         font-weight: 400;
         font-family: var(--font-Inter);
+        text-align: end;
       }
     }
   }

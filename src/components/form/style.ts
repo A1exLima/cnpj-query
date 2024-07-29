@@ -46,6 +46,9 @@ export const FormContainer = styled.div<FormContainerProps>`
       }
 
       > button:first-child > svg {
+        color: ${({ theme, $buttonColorEdit }) =>
+          $buttonColorEdit ? theme['check-green'] : theme['Pale-Silver']};
+
         transition: color 0.2 ease-in-out;
 
         &:hover {
@@ -56,6 +59,12 @@ export const FormContainer = styled.div<FormContainerProps>`
       > button:last-child > svg {
         color: ${({ theme, $buttonColorEdit }) =>
           $buttonColorEdit ? theme['button-edit'] : theme['Pale-Silver']};
+
+        transition: color 0.2 ease-in-out;
+
+        &:hover {
+          color: ${({ theme }) => theme['button-edit']};
+        }
       }
     }
   }

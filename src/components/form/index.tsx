@@ -125,11 +125,15 @@ export function Form({
             <h2>{title}</h2>
             <div>
               {/* Botão para salvar */}
-              <button type="submit">
+              <button type="submit" title="Salvar formulário">
                 <BiSolidSave />
               </button>
               {/* Botão para editar */}
-              <button type="button" onClick={handleEditButton}>
+              <button
+                type="button"
+                onClick={handleEditButton}
+                title="Editar formulário"
+              >
                 <RiEdit2Fill />
               </button>
             </div>
