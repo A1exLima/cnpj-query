@@ -1,17 +1,12 @@
 import { format } from 'date-fns'
 
-// Definição dos tipos de dados utilizados
+// Tipos de dados utilizados
 type CNPJCard = {
   id?: string
-  nameCard?: string
   razaoSocial: string
   nomeFantasia: string
-  situacaoCadastral: number
   dataAbertura: string
-  naturezaJuridica: string
-  capitalSocial: number | string
-  optanteMei: boolean | string
-  optanteSimplesNacional: boolean | string
+  situacaoCadastral: number | string
   email: string | null
   telefone: string
 }
@@ -29,20 +24,18 @@ type Address = {
 
 type CNAE = {
   id?: string
-  nameCard?: string
-  principal: number
-  descricaoPrincipal: string
+  atividadePrincipal: string | number
 }
 
 export type Partner = {
-  id: string // Modificado para garantir unicidade
+  id: string
   nameCard?: string
   nome: string
   dataEntrada: string
   qualificacao: string
 }
 
-interface InputPartner {
+export interface InputPartner {
   id?: string
   nameCard?: string
   nome_socio: string
@@ -63,48 +56,55 @@ export interface OrganizeDataByBusinessRuleProps {
   partner: Partner[]
 }
 
-// Função que organiza os dados conforme regras de negócio específicas.
+// Função para organizar os dados conforme regras de negócio específicas
 export function organizeDataByBusinessRule(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: any, // Dados de entrada recebidos da APIBRASIL para consulta de cnpj
+  data: any,
 ): OrganizeDataByBusinessRuleProps {
-  // Obtém a data e hora atuais para uso na criação do ID e na formatação da data de criação
+  // Obter a data atual
   const currentDate = new Date()
-
-  // Cria um ID único baseado na data e hora atuais
+  // Gerar um ID único baseado no timestamp atual
   const id = `${currentDate.getTime()}`
-
-  // Formata a data atual no formato "dd/MM/yyyy 'às' HH:mm" (formato pt-BR)
+  // Formatar a data atual para exibição
   const formattedDate = format(currentDate, "dd/MM/yyyy 'às' HH:mm")
 
-  // Função para gerar IDs únicos para os sócios
+  // Variável para controlar o próximo ID de sócio
   let nextPartnerId = 1
+  // Função para gerar IDs únicos para sócios
   const generatePartnerId = () => {
     const partnerId = `partner-${nextPartnerId}`
     nextPartnerId++
     return partnerId
   }
 
-  // Dados organizados conforme a regra de negócio solicitada
+  // Função para formatar CNPJ para exibição
+  const formatarCNPJ = (cnpj: string): string => {
+    cnpj = cnpj.replace(/\D/g, '')
+    cnpj = cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5')
+    return cnpj
+  }
+
+  // Retornar o objeto organizado conforme as regras de negócio
   return {
     id,
     dateAndTimeCreated: formattedDate,
     updatedDateAndTime: null,
-    cnpj: data.cnpj,
+    // Formatar o CNPJ usando a função auxiliar
+    cnpj: formatarCNPJ(data.cnpj),
+    // Preencher dados do cartão CNPJ
     cnpjCard: {
       razaoSocial: data.razao_social,
       nomeFantasia: data.nome_fantasia,
-      situacaoCadastral: data.situacao_cadastral,
+      // Converter a data de abertura para formato local
       dataAbertura: new Date(data.data_inicio_atividade).toLocaleDateString(
         'pt-BR',
       ),
-      naturezaJuridica: data.natureza_juridica,
-      capitalSocial: `R$${data.capital_social},00`,
-      optanteMei: data.opcao_pelo_mei ? 'Sim' : 'Não',
-      optanteSimplesNacional: data.opcao_pelo_simples ? 'Sim' : 'Não',
+      // Determinar a situação cadastral com base nos dados fornecidos
+      situacaoCadastral: data.situacao_cadastral !== 2 ? 'INATIVA' : 'ATIVA',
       email: data.email.toLowerCase(),
       telefone: data.ddd_telefone_1,
     },
+    // Preencher dados do endereço
     address: {
       logradouro: data.logradouro,
       numero: data.numero,
@@ -113,13 +113,15 @@ export function organizeDataByBusinessRule(
       uf: data.uf,
       cep: data.cep,
     },
+    // Preencher dados do CNAE
     cnae: {
-      principal: data.cnae_fiscal,
-      descricaoPrincipal: data.cnae_fiscal_descricao,
+      atividadePrincipal: `${data.cnae_fiscal} - ${data.cnae_fiscal_descricao}`,
     },
+    // Mapear e preencher dados dos sócios
     partner: data.qsa.map((partner: InputPartner) => ({
       id: generatePartnerId(),
       nome: partner.nome_socio,
+      // Converter a data de entrada do sócio para formato local
       dataEntrada: new Date(partner.data_entrada_sociedade).toLocaleDateString(
         'pt-BR',
       ),
