@@ -9,7 +9,7 @@ import {
   OrganizeDataByBusinessRuleProps,
 } from '../../hooks/organizeData'
 
-import { BannerAndCnpjEntry } from '../../components/bannerAndCnpEntry'
+import { BannerAndCnpjEntry } from '../../components/bannerAndCnpjEntry'
 
 import {
   getLocalStorage,

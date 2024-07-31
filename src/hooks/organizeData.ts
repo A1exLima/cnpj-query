@@ -56,6 +56,13 @@ export interface OrganizeDataByBusinessRuleProps {
   partner: Partner[]
 }
 
+// Função para formatar CNPJ para exibição
+export const formatCnpj = (cnpj: string): string => {
+  cnpj = cnpj.replace(/\D/g, '')
+  cnpj = cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5')
+  return cnpj
+}
+
 // Função para organizar os dados conforme regras de negócio específicas
 export function organizeDataByBusinessRule(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -63,8 +70,10 @@ export function organizeDataByBusinessRule(
 ): OrganizeDataByBusinessRuleProps {
   // Obter a data atual
   const currentDate = new Date()
+
   // Gerar um ID único baseado no timestamp atual
   const id = `${currentDate.getTime()}`
+
   // Formatar a data atual para exibição
   const formattedDate = format(currentDate, "dd/MM/yyyy 'às' HH:mm")
 
@@ -77,20 +86,13 @@ export function organizeDataByBusinessRule(
     return partnerId
   }
 
-  // Função para formatar CNPJ para exibição
-  const formatarCNPJ = (cnpj: string): string => {
-    cnpj = cnpj.replace(/\D/g, '')
-    cnpj = cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5')
-    return cnpj
-  }
-
   // Retornar o objeto organizado conforme as regras de negócio
   return {
     id,
     dateAndTimeCreated: formattedDate,
     updatedDateAndTime: null,
     // Formatar o CNPJ usando a função auxiliar
-    cnpj: formatarCNPJ(data.cnpj),
+    cnpj: formatCnpj(data.cnpj),
     // Preencher dados do cartão CNPJ
     cnpjCard: {
       razaoSocial: data.razao_social,

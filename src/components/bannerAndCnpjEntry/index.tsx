@@ -4,6 +4,7 @@ import { TbReload } from 'react-icons/tb'
 import { FaCheck } from 'react-icons/fa'
 import { IoIosCloseCircle } from 'react-icons/io'
 import { LuLoader2 } from 'react-icons/lu'
+import { formatCnpj } from '../../hooks/organizeData'
 
 // Propriedades esperadas para o componente BannerAndCnpjEntry
 interface BannerAndCnpjEntryProps {
@@ -48,7 +49,10 @@ export function BannerAndCnpjEntry({
 
   // Função para lidar com a mudança no valor do CNPJ digitado pelo usuário
   const handleCnpjValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCnpjValue(e.target.value)
+    const inputCnpj = e.target.value
+
+    // Remove todos os caracteres que não são dígitos e seta o estado cnpjValue
+    setCnpjValue(inputCnpj.replace(/\D/g, ''))
   }
 
   // Função para iniciar a consulta do CNPJ
@@ -82,13 +86,14 @@ export function BannerAndCnpjEntry({
       </Banner>
 
       <CnpjEntry $colorCheck={isButtonDisabled}>
-        <label htmlFor="cnpj-entry">Insira o número do CNPJ abaixo:</label>
+        <label htmlFor="cnpjInput">Insira o número do CNPJ abaixo:</label>
         <input
-          id="cnpj-entry"
-          type="number"
+          id="cnpjInput"
+          type="text"
           placeholder="Digite o CNPJ"
-          value={cnpjValue}
+          value={formatCnpj(cnpjValue)}
           onChange={handleCnpjValue}
+          maxLength={18}
           onFocus={() => setAlertMessage('')}
         />
         {alertMessage ? <span>{alertMessage}</span> : ''}
@@ -105,12 +110,16 @@ export function BannerAndCnpjEntry({
               value={answer}
               onChange={handleAnswerChange}
             />
-            <TbReload onClick={generateRandomNumbers} />
+            <TbReload
+              className="recharge-icon"
+              onClick={generateRandomNumbers}
+              title="Recarregar pergunta"
+            />
 
             {isButtonDisabled ? (
-              <IoIosCloseCircle className="icon-color" />
+              <IoIosCloseCircle className="icon-color" title="Recusado" />
             ) : (
-              <FaCheck className="icon-color" />
+              <FaCheck className="icon-color" title="Aprovado" />
             )}
           </div>
         </div>

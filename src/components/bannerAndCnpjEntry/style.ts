@@ -176,7 +176,16 @@ export const CnpjEntry = styled.section<CnpjEntryProps>`
         color: ${({ theme }) => theme['Slate-Blue']};
       }
 
+      .recharge-icon {
+        transition: 0.3s ease-in-out;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+
       .icon-color {
+        cursor: default;
         color: ${({ $colorCheck, theme }) =>
           $colorCheck ? theme['check-red'] : theme['check-green']};
       }
@@ -184,6 +193,7 @@ export const CnpjEntry = styled.section<CnpjEntryProps>`
   }
 
   > button {
+    width: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -199,18 +209,19 @@ export const CnpjEntry = styled.section<CnpjEntryProps>`
     font-weight: 500;
     font-family: var(--font-Roboto);
     color: ${({ theme }) => theme['Chinese-White']};
-    cursor: pointer;
-
     box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 5px;
+    cursor: pointer;
+    filter: brightness(130%);
 
     transition: filter 0.4s ease-in-out;
 
-    &:hover {
-      filter: brightness(150%);
+    &:hover:not(:disabled) {
+      filter: brightness(160%);
     }
 
     &:disabled {
       cursor: not-allowed;
+      filter: brightness(100%);
     }
 
     > svg {

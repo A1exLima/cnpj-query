@@ -23,8 +23,7 @@ export function setLocalStorage(
   }
 }
 
-// Recupera um array de objetos do localStorage usando uma chave especificada.
-// Retorna o array ou um array vazio se não houver dados.
+// Recupera um array de objetos do localStorage usando uma chave especificada e retorna o array de dados recuperados ou um array vazio se não houver dados.
 export function getLocalStorage(
   key: string,
 ): OrganizeDataByBusinessRuleProps[] | [] {
