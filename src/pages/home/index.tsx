@@ -1,28 +1,41 @@
-import { Content, HomeContainer, WarningMessage } from './style'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { organizeDataByBusinessRule } from '../../hooks/organizeData'
+import axios from 'axios'
+
+import { Content, HomeContainer, WarningMessage } from './style'
+
+import {
+  organizeDataByBusinessRule,
+  OrganizeDataByBusinessRuleProps,
+} from '../../hooks/organizeData'
 
 import { BannerAndCnpjEntry } from '../../components/bannerAndCnpEntry'
 
+import {
+  getLocalStorage,
+  setLocalStorage,
+} from '../../hooks/getOrSetLocalStorage'
+
 // Componente principal da página Home
 export function Home() {
-  // Estado para armazenar os dados do localStorage que está simulando um banco de dados
-  const [dataBase] = useState(() => {
-    const storedData = localStorage.getItem('cnpjQuery-database')
-    return storedData ? JSON.parse(storedData) : []
-  })
-  // Estado para armazenar os dados da resposta da API
-  const [dataApi, setDataApi] = useState<object>({})
-  // Estado para armazenar a mensagem de alerta
-  const [alertMessage, setAlertMessage] = useState<string>('')
-  // Estado para indicar se a consulta está em andamento
-  const [loading, setLoading] = useState<boolean>(false)
   // Hook de navegação do React Router
   const navigate = useNavigate()
 
-  // Função para buscar os dados da API utilizando o valor do CNPJ
+  // Estado para capturar os dados que estão salvos no localStorage que está simulando um banco de dados
+  const [dataBase] = useState<OrganizeDataByBusinessRuleProps[]>(() =>
+    getLocalStorage('cnpjQuery-database'),
+  )
+
+  // Estado para armazenar os dados da resposta da API
+  const [dataApi, setDataApi] = useState<object>({})
+
+  // Estado para armazenar mensagens de alerta para o usuário
+  const [alertMessage, setAlertMessage] = useState<string>('')
+
+  // Estado para indicar se a consulta está em andamento
+  const [loading, setLoading] = useState<boolean>(false)
+
+  // Função para buscar os dados da API via AXIOS utilizando o valor do CNPJ
   const cnpjFetchDataApi = async (cnpjValue: string) => {
     setLoading(true)
     setAlertMessage('')
@@ -57,16 +70,22 @@ export function Home() {
       const organizedData = organizeDataByBusinessRule(dataApi)
 
       // Salva os dados organizados no localStorage em conjunto com os dados já armazenados
-      localStorage.setItem(
+      dataBase.push(organizedData)
+      const resultToSetLocalStorage = setLocalStorage(
         'cnpjQuery-database',
-        JSON.stringify([...dataBase, organizedData]),
+        dataBase,
       )
 
-      // Captura o ID da consulta de dados já organizada
-      const id = organizedData.id
+      // Redireciona para a página de consulta após os dados serem armazenados com sucesso no localStorage
+      if (resultToSetLocalStorage.status === true) {
+        // Captura o ID da consulta de dados já organizados
+        const id = organizedData.id
 
-      // Navega para a rota com o ID da consulta organizada
-      navigate(`/query-cnpj/${id}`)
+        // Navega para a rota com o ID da consulta organizada
+        navigate(`/query-cnpj/${id}`)
+      } else {
+        setAlertMessage('Por favor, efetue a consulta novamente.')
+      }
     }
   }, [dataApi, loading, navigate, dataBase])
 
