@@ -4,35 +4,25 @@ import { useParams } from 'react-router-dom'
 
 import { OrganizeDataByBusinessRuleProps } from '../../hooks/organizeData'
 import { CompanyData } from '../../components/companyData'
+import { getLocalStorage } from '../../hooks/getOrSetLocalStorage'
 
 // Componente responsável por carregar dados de CNPJ da base local e exibir detalhes filtrados pelo ID da rota.
 export function QueryCnpj() {
   // Obtém o parâmetro de ID da rota usando o hook useParams do React Router
   const { id } = useParams<string>()
 
-  // Estado para armazenar a base de dados local de CNPJs organizados
-  const [dataBase, setDataBase] = useState<OrganizeDataByBusinessRuleProps[]>(
-    [],
-  )
-
   // Estado para armazenar os detalhes do CNPJ filtrado pelo ID
   const [dataCnpj, setDataCnpj] =
     useState<OrganizeDataByBusinessRuleProps | null>(null)
 
-  // Efeito para carregar dados da base local ao montar o componente
+  // Efeito para carregar dados da base local e filtrar dados do CNPJ ao mudar a base de dados ou o ID
   useEffect(() => {
-    const storedData = localStorage.getItem('cnpjQuery-database')
-    if (storedData) {
-      setDataBase(JSON.parse(storedData))
-    }
-  }, [])
+    const storedData = getLocalStorage('cnpjQuery-database')
 
-  // Efeito para filtrar dados do CNPJ ao mudar a base de dados ou o ID
-  useEffect(() => {
     const filteredCnpjData =
-      dataBase.find((company) => company.id === id) || null
+      storedData.find((company) => company.id === id) || null
     setDataCnpj(filteredCnpjData)
-  }, [dataBase, id])
+  }, [id])
 
   // Renderiza o componente
   return (

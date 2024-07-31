@@ -212,11 +212,16 @@ export const CnpjEntry = styled.section<CnpjEntryProps>`
     box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 5px;
     cursor: pointer;
     filter: brightness(130%);
+    outline: 1px solid transparent;
 
     transition: filter 0.4s ease-in-out;
 
     &:hover:not(:disabled) {
       filter: brightness(160%);
+    }
+
+    &:focus {
+      outline: 1px solid ${({ theme }) => theme['white-color']};
     }
 
     &:disabled {
