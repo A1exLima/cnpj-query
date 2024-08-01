@@ -1,26 +1,33 @@
+import { CompanyDataContainer } from './style'
+
 import { useState } from 'react'
+
 import {
   FormData,
   OrganizeDataByBusinessRuleProps,
 } from '../../hooks/organizeData'
+
 import { Form } from '../form'
-import { CompanyDataContainer } from './style'
 
 interface CompanyDataProps {
   data: OrganizeDataByBusinessRuleProps
   saveFormDataToLocalStorage: (nameCard: string, data: FormData) => void
 }
 
+// Define o componente `CompanyData` que recebe `data` e `saveFormDataToLocalStorage` como props.
 export function CompanyData({
   data,
   saveFormDataToLocalStorage,
 }: CompanyDataProps) {
+  // `editingForm` é um estado que armazena o nome do formulário atualmente em edição.
   const [editingForm, setEditingForm] = useState<string | null>(null)
 
+  // Função que é chamada ao clicar no botão de edição de um formulário.
   const handleEditButtonClick = (nameCard: string) => {
     setEditingForm((prev) => (prev === nameCard ? null : nameCard))
   }
 
+  // Renderiza o componente `CompanyData`.
   return (
     <CompanyDataContainer>
       <div>
