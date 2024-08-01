@@ -100,19 +100,6 @@ export const CnpjEntry = styled.section<CnpjEntryProps>`
     }
   }
 
-  /* Para navegadores Webkit (Chrome, Safari, Edge) */
-  input[type='number']::-webkit-outer-spin-button,
-  input[type='number']::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  /* Para garantir compatibilidade com o estilo do Edge (baseado no Chromium) */
-  input[type='number']::-ms-outer-spin-button,
-  input[type='number']::-ms-inner-spin-button {
-    display: none;
-  }
-
   > span {
     margin-top: -0.5rem;
     font-size: 1.4rem;

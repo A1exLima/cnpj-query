@@ -1,18 +1,17 @@
 import { format } from 'date-fns'
+import { formatCnpj } from './stringFormatting'
 
 // Tipos de dados utilizados
 type CNPJCard = {
-  id?: string
   razaoSocial: string
   nomeFantasia: string
   dataAbertura: string
-  situacaoCadastral: number | string
-  email: string | null
+  situacaoCadastral: string
+  email: string
   telefone: string
 }
 
 type Address = {
-  id?: string
   nameCard?: string
   logradouro: string
   numero: string
@@ -23,12 +22,10 @@ type Address = {
 }
 
 type CNAE = {
-  id?: string
-  atividadePrincipal: string | number
+  atividadePrincipal: string
 }
 
 export type Partner = {
-  id: string
   nameCard?: string
   nome: string
   dataEntrada: string
@@ -36,7 +33,7 @@ export type Partner = {
 }
 
 export interface InputPartner {
-  id?: string
+  id: string
   nameCard?: string
   nome_socio: string
   data_entrada_sociedade: string
@@ -54,13 +51,6 @@ export interface OrganizeDataByBusinessRuleProps {
   address: Address
   cnae: CNAE
   partner: Partner[]
-}
-
-// Função para formatar CNPJ para exibição
-export const formatCnpj = (cnpj: string): string => {
-  cnpj = cnpj.replace(/\D/g, '')
-  cnpj = cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5')
-  return cnpj
 }
 
 // Função para organizar os dados conforme regras de negócio específicas
@@ -97,10 +87,8 @@ export function organizeDataByBusinessRule(
     cnpjCard: {
       razaoSocial: data.razao_social,
       nomeFantasia: data.nome_fantasia,
-      // Converter a data de abertura para formato local
-      dataAbertura: new Date(data.data_inicio_atividade).toLocaleDateString(
-        'pt-BR',
-      ),
+      dataAbertura: data.data_inicio_atividade,
+
       // Determinar a situação cadastral com base nos dados fornecidos
       situacaoCadastral: data.situacao_cadastral !== 2 ? 'INATIVA' : 'ATIVA',
       email: data.email.toLowerCase(),

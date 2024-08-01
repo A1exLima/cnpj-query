@@ -16,14 +16,27 @@ export const FormContainer = styled.div<FormContainerProps>`
 
     background-color: ${({ theme }) => theme['Slate-Blue']};
 
-    > h2 {
-      font-size: 2rem;
-      font-weight: 600;
-      font-family: var(--font-Inter);
-      color: ${({ theme }) => theme['Pale-Silver']};
+    > div:first-child {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+
+      > h2 {
+        font-size: 2rem;
+        font-weight: 600;
+        font-family: var(--font-Inter);
+        color: ${({ theme }) => theme['Pale-Silver']};
+      }
+
+      > span {
+        > svg {
+          font-size: 2rem;
+          color: ${({ theme }) => theme['check-green']};
+        }
+      }
     }
 
-    > div {
+    > div:last-child {
       display: flex;
       gap: 1.5rem;
 
@@ -45,14 +58,21 @@ export const FormContainer = styled.div<FormContainerProps>`
         }
       }
 
-      > button:first-child > svg {
-        color: ${({ theme, $buttonColorEdit }) =>
-          $buttonColorEdit ? theme['check-green'] : theme['Pale-Silver']};
-
+      > button:first-child {
         transition: color 0.2 ease-in-out;
 
-        &:hover {
+        &:hover:not(:disabled) {
           color: ${({ theme }) => theme['check-green']};
+        }
+
+        &:disabled {
+          color: ${({ theme }) => theme['Pale-Silver']};
+          cursor: not-allowed;
+        }
+
+        > svg {
+          color: ${({ theme, $buttonColorEdit }) =>
+            $buttonColorEdit ? theme['check-green'] : theme['Pale-Silver']};
         }
       }
 

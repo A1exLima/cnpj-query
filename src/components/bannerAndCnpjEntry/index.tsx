@@ -4,7 +4,7 @@ import { TbReload } from 'react-icons/tb'
 import { FaCheck } from 'react-icons/fa'
 import { IoIosCloseCircle } from 'react-icons/io'
 import { LuLoader2 } from 'react-icons/lu'
-import { formatCnpj } from '../../hooks/organizeData'
+import { formatCnpj } from '../../hooks/stringFormatting'
 
 // Propriedades esperadas para o componente BannerAndCnpjEntry
 interface BannerAndCnpjEntryProps {

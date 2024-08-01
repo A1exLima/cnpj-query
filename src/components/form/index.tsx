@@ -1,97 +1,39 @@
 import { FormContainer } from './style'
+import { useState, useRef, useEffect } from 'react'
+import { FormData } from '../../hooks/organizeData'
+import { editTitleKey } from '../../hooks/stringFormatting'
+import { detectType } from '../../hooks/checkInputType'
 import { RiEdit2Fill } from 'react-icons/ri'
 import { BiSolidSave } from 'react-icons/bi'
-import { useState, useRef, useEffect } from 'react'
-
-// Importando tipos necessários
-import {
-  FormData,
-  OrganizeDataByBusinessRuleProps,
-} from '../../hooks/organizeData'
+import { FaCheck } from 'react-icons/fa'
 
 interface FormProps {
+  data: FormData
   nameCard: string
-  id: string
-  data: FormData | null
-  partnerData?: FormData[] | null | undefined
   title: string
   displayGrid?: boolean
+  saveFormDataToLocalStorage: (nameCard: string, data: FormData) => void
+  isEditing: boolean
+  onEditButtonClick: () => void
 }
 
 export function Form({
-  partnerData,
-  nameCard,
-  id,
   data,
+  nameCard,
   title,
   displayGrid = true,
+  saveFormDataToLocalStorage,
+  isEditing,
+  onEditButtonClick,
 }: FormProps) {
-  // Estado para controle de edição
-  const [enableEditing, setEnableEditing] = useState<boolean>(false)
-
-  // Estado para armazenar dados do formulário
-  const [formData, setFormData] = useState<FormData | null>(null)
-
-  // Referência para o primeiro input para foco automático
+  const [formData, setFormData] = useState<FormData>(data)
   const firstInputRef = useRef<HTMLInputElement | null>(null)
+  const [confirmSave, setConfirmSave] = useState(false)
 
-  // Função para formatar o título do campo
-  const editTitleKey = (title: string) => {
-    return (
-      title.charAt(0).toUpperCase() +
-      title
-        .slice(1)
-        .replace(/([A-Z])/g, ' $1')
-        .trim()
-    )
-  }
-
-  // Função para alternar entre modo de edição e visualização
   const handleEditButton = () => {
-    setEnableEditing((prevState) => !prevState)
+    onEditButtonClick()
   }
 
-  // Função para lidar com o envio do formulário
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setEnableEditing(false)
-
-    // Recuperando dados do localStorage
-    const storedData = localStorage.getItem('cnpjQuery-database')
-    const parsedData: OrganizeDataByBusinessRuleProps[] | null = storedData
-      ? JSON.parse(storedData)
-      : null
-
-    let updatedPartnerData: FormData[] | undefined
-
-    if (partnerData && formData) {
-      updatedPartnerData = partnerData.map((partner) =>
-        partner.id === formData.id ? formData : partner,
-      )
-    }
-
-    if (parsedData && formData) {
-      // Atualizando os dados relevantes no localStorage
-      const updatedData: OrganizeDataByBusinessRuleProps[] = parsedData.map(
-        (card) => {
-          if (card.id === id) {
-            const updatedCard = {
-              ...card,
-              [nameCard]:
-                nameCard === 'partner' ? updatedPartnerData : formData,
-            }
-            return updatedCard
-          }
-          return card
-        },
-      )
-
-      // Salvando os dados atualizados no localStorage
-      localStorage.setItem('cnpjQuery-database', JSON.stringify(updatedData))
-    }
-  }
-
-  // Função para lidar com mudanças nos inputs do formulário
   const handleInputChange = (key: string, value: string) => {
     if (formData) {
       setFormData({
@@ -101,38 +43,42 @@ export function Form({
     }
   }
 
-  // Efeito para focar no primeiro input ao ativar a edição
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    saveFormDataToLocalStorage(nameCard, formData)
+    handleEditButton()
+    setConfirmSave(true)
+  }
+
   useEffect(() => {
-    if (enableEditing && firstInputRef.current) {
+    if (isEditing && firstInputRef.current) {
       firstInputRef.current.focus()
     }
-  }, [enableEditing])
-
-  // Efeito para inicializar o estado do formulário com os dados recebidos
-  useEffect(() => {
-    if (data) {
-      setFormData({
-        ...data,
-      })
-    }
-  }, [data, id])
+  }, [isEditing])
 
   return (
-    <FormContainer $displayGrid={displayGrid} $buttonColorEdit={enableEditing}>
+    <FormContainer $displayGrid={displayGrid} $buttonColorEdit={isEditing}>
       {formData && (
         <form onSubmit={handleSubmit}>
           <div className="title-and-buttons">
-            <h2>{title}</h2>
             <div>
-              {/* Botão para salvar */}
-              <button type="submit" title="Salvar formulário">
+              <h2>{title}</h2>
+              <span>{confirmSave ? <FaCheck /> : ''}</span>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                title="Salvar formulário"
+                disabled={!isEditing}
+              >
                 <BiSolidSave />
               </button>
-              {/* Botão para editar */}
               <button
                 type="button"
-                onClick={handleEditButton}
                 title="Editar formulário"
+                onClick={handleEditButton}
+                disabled={isEditing}
               >
                 <RiEdit2Fill />
               </button>
@@ -140,27 +86,19 @@ export function Form({
           </div>
 
           <div className="container-inputs">
-            {/* Mapeando e renderizando os inputs do formulário */}
-            {Object.entries(formData).map(([key, item], index) => {
-              // Ignorar a renderização do input se a chave for "id"
-              if (key === 'id') return null
-
-              const titleKey = editTitleKey(key)
-
-              return (
-                <div key={key}>
-                  <label htmlFor={key}>{`${titleKey}:`}</label>
-                  <input
-                    type="text"
-                    id={key}
-                    value={item !== null ? String(item) : ''}
-                    onChange={(e) => handleInputChange(key, e.target.value)}
-                    disabled={!enableEditing}
-                    ref={index === 0 ? firstInputRef : null}
-                  />
-                </div>
-              )
-            })}
+            {Object.entries(formData).map(([key, item], index) => (
+              <div key={key}>
+                <label htmlFor={key}>{`${editTitleKey(key)}:`}</label>
+                <input
+                  type={detectType(item)}
+                  id={key}
+                  value={item}
+                  onChange={(e) => handleInputChange(key, e.target.value)}
+                  disabled={!isEditing}
+                  ref={index === 0 ? firstInputRef : null}
+                />
+              </div>
+            ))}
           </div>
         </form>
       )}

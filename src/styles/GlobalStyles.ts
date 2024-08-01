@@ -46,6 +46,19 @@ export const GlobalStyle = createGlobalStyle`
       box-shadow: none;
     }
 
+      /* Para navegadores Webkit (Chrome, Safari, Edge) */
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Para garantir compatibilidade com o estilo do Edge (baseado no Chromium) */
+  input[type='number']::-ms-outer-spin-button,
+  input[type='number']::-ms-inner-spin-button {
+    display: none;
+  }
+
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
