@@ -26,7 +26,7 @@ export function CardHistory({ data }: CardHistoryProps) {
         <div>
           <p>{`Criado: ${data.dateAndTimeCreated}h`}</p>
           {data.updatedDateAndTime ? (
-            <p>{`Editado: ${data.updatedDateAndTime}`}</p>
+            <p>{`Editado: ${data.updatedDateAndTime}h`}</p>
           ) : (
             ''
           )}

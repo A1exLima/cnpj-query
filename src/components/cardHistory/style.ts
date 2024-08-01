@@ -29,7 +29,7 @@ export const CardContainer = styled.section`
     > div {
       display: flex;
       align-items: center;
-      gap: 2rem;
+      gap: 1rem;
 
       > p {
         font-size: 1.4rem;

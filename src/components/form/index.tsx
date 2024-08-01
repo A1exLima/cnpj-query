@@ -1,8 +1,11 @@
 import { FormContainer } from './style'
+
 import { useState, useRef, useEffect } from 'react'
+
 import { FormData } from '../../hooks/organizeData'
 import { editTitleKey } from '../../hooks/stringFormatting'
 import { detectType } from '../../hooks/checkInputType'
+
 import { RiEdit2Fill } from 'react-icons/ri'
 import { BiSolidSave } from 'react-icons/bi'
 import { FaCheck } from 'react-icons/fa'
@@ -55,7 +58,9 @@ export function Form({
   // Função chamada ao submeter o formulário.
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
     saveFormDataToLocalStorage(nameCard, formData)
+
     handleEditButton()
     setConfirmSave(true)
   }
@@ -66,7 +71,6 @@ export function Form({
       firstInputRef.current.focus()
     }
   }, [isEditing])
-
   // Renderiza o componente `Form`.
   return (
     <FormContainer $displayGrid={displayGrid} $buttonColorEdit={isEditing}>
@@ -99,19 +103,33 @@ export function Form({
           </div>
 
           <div className="container-inputs">
-            {Object.entries(formData).map(([key, item], index) => (
-              <div key={key}>
-                <label htmlFor={key}>{`${editTitleKey(key)}:`}</label>
-                <input
-                  type={detectType(item)} // Detecta dinamicamente o tipo de input (texto, número, etc).
-                  id={key}
-                  value={item}
-                  onChange={(e) => handleInputChange(key, e.target.value)}
-                  disabled={!isEditing}
-                  ref={index === 0 ? firstInputRef : null}
-                />
-              </div>
-            ))}
+            {Object.entries(formData).map(([key, item], index) => {
+              // Ignorar a renderização do input se a chave for "id"
+              if (key === 'id') return null
+
+              return (
+                <div key={key}>
+                  <label htmlFor={key}>{`${editTitleKey(key)}:`}</label>
+                  <input
+                    type={detectType(item)} // Detecta dinamicamente o tipo de input (texto, número, etc).
+                    id={key}
+                    value={item}
+                    onChange={(e) => handleInputChange(key, e.target.value)}
+                    disabled={!isEditing}
+                    ref={
+                      // Atribui a referência ao elemento com base nas condições abaixo
+                      nameCard === 'partner'
+                        ? index === 1
+                          ? firstInputRef
+                          : null
+                        : index === 0
+                          ? firstInputRef
+                          : null
+                    }
+                  />
+                </div>
+              )
+            })}
           </div>
         </form>
       )}

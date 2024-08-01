@@ -73,6 +73,22 @@ export function CompanyData({
           onEditButtonClick={() => handleEditButtonClick('cnae')}
           displayGrid={false}
         />
+
+        <div className="container-partner">
+          {/* Mapeia e renderiza formulários para cada sócio da empresa */}
+          {data.partner.map((partner) => (
+            <Form
+              key={partner.id}
+              data={partner}
+              nameCard="partner"
+              title="Sócio"
+              saveFormDataToLocalStorage={saveFormDataToLocalStorage}
+              isEditing={editingForm === partner.id}
+              onEditButtonClick={() => handleEditButtonClick(`${partner.id}`)}
+              displayGrid={false}
+            />
+          ))}
+        </div>
       </div>
     </CompanyDataContainer>
   )

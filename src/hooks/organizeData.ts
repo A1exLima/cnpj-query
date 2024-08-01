@@ -3,6 +3,7 @@ import { formatCnpj } from './stringFormatting'
 
 // Tipos de dados utilizados
 type CNPJCard = {
+  id?: string
   razaoSocial: string
   nomeFantasia: string
   dataAbertura: string
@@ -12,6 +13,7 @@ type CNPJCard = {
 }
 
 type Address = {
+  id?: string
   nameCard?: string
   logradouro: string
   numero: string
@@ -22,11 +24,12 @@ type Address = {
 }
 
 type CNAE = {
+  id?: string
   atividadePrincipal: string
 }
 
 export type Partner = {
-  nameCard?: string
+  id: string
   nome: string
   dataEntrada: string
   qualificacao: string
@@ -34,13 +37,12 @@ export type Partner = {
 
 export interface InputPartner {
   id: string
-  nameCard?: string
   nome_socio: string
   data_entrada_sociedade: string
   qualificacao_socio: string
 }
 
-export type FormData = CNPJCard | Address | CNAE | Partner | InputPartner
+export type FormData = CNPJCard | Address | CNAE | Partner
 
 export interface OrganizeDataByBusinessRuleProps {
   id: string
@@ -111,10 +113,7 @@ export function organizeDataByBusinessRule(
     partner: data.qsa.map((partner: InputPartner) => ({
       id: generatePartnerId(),
       nome: partner.nome_socio,
-      // Converter a data de entrada do sócio para formato local
-      dataEntrada: new Date(partner.data_entrada_sociedade).toLocaleDateString(
-        'pt-BR',
-      ),
+      dataEntrada: partner.data_entrada_sociedade,
       qualificacao: partner.qualificacao_socio,
     })),
   }
