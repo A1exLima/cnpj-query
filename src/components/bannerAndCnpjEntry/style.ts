@@ -2,6 +2,7 @@ import { styled } from 'styled-components'
 
 interface CnpjEntryProps {
   $colorCheck: boolean
+  $checkIfCnpjExists: boolean
 }
 
 export const BannerAndCnpEntryContainer = styled.section`
@@ -102,10 +103,11 @@ export const CnpjEntry = styled.section<CnpjEntryProps>`
 
   > span {
     margin-top: -0.5rem;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 500;
     font-family: var(--font-Roboto);
-    color: ${({ theme }) => theme['check-red']};
+    color: ${({ theme, $checkIfCnpjExists }) =>
+      $checkIfCnpjExists ? theme['Charcoal-Blue'] : theme['check-red']};
   }
 
   > div {

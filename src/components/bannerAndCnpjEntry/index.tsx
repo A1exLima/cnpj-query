@@ -5,6 +5,7 @@ import { FaCheck } from 'react-icons/fa'
 import { IoIosCloseCircle } from 'react-icons/io'
 import { LuLoader2 } from 'react-icons/lu'
 import { formatCnpj } from '../../hooks/stringFormatting'
+import { checkIfCnpjIsAlreadyInTheDatabase } from '../../hooks/checkIfCnpjIsAlreadyInTheDatabase'
 
 // Propriedades esperadas para o componente BannerAndCnpjEntry
 interface BannerAndCnpjEntryProps {
@@ -25,7 +26,7 @@ export function BannerAndCnpjEntry({
   const [isButtonDisabled, setIsButtonDisabled] = useState(true) // Estado para controlar se o botão está desabilitado
   const [cnpjValue, setCnpjValue] = useState<string>('') // Estado para armazenar o valor do CNPJ digitado
   const [alertMessage, setAlertMessage] = useState<string>(alert) // Estado para exibir mensagens de alerta
-
+  const [checkIfCnpjExists, setCheckIfCnpjExists] = useState<boolean>(false)
   // Função para gerar números aleatórios e resetar valores
   const generateRandomNumbers = () => {
     setNum1(Math.floor(Math.random() * 10))
@@ -57,10 +58,22 @@ export function BannerAndCnpjEntry({
 
   // Função para iniciar a consulta do CNPJ
   const consultCnpjValue = () => {
-    setIsButtonDisabled(true)
-    setAnswer('')
-    setCnpjValue('')
-    consultCnpj(cnpjValue)
+    setCheckIfCnpjExists(false)
+
+    const checkIfCnpjExistsInLocalStorage =
+      checkIfCnpjIsAlreadyInTheDatabase(cnpjValue)
+
+    if (checkIfCnpjExistsInLocalStorage) {
+      setCheckIfCnpjExists(checkIfCnpjExistsInLocalStorage)
+      return setAlertMessage(
+        'CNPJ já consultado, verifique o histórico de consultas!',
+      )
+    } else {
+      setIsButtonDisabled(true)
+      setAnswer('')
+      setCnpjValue('')
+      consultCnpj(cnpjValue)
+    }
   }
 
   // Efeito para gerar números aleatórios ao montar o componente
@@ -85,7 +98,10 @@ export function BannerAndCnpjEntry({
         </p>
       </Banner>
 
-      <CnpjEntry $colorCheck={isButtonDisabled}>
+      <CnpjEntry
+        $colorCheck={isButtonDisabled}
+        $checkIfCnpjExists={checkIfCnpjExists}
+      >
         <label htmlFor="cnpjInput">Insira o número do CNPJ abaixo:</label>
         <input
           id="cnpjInput"
