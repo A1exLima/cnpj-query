@@ -6,8 +6,6 @@ interface FormContainerProps {
 }
 
 export const FormContainer = styled.div<FormContainerProps>`
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 10px;
-
   .title-and-buttons {
     display: flex;
     align-items: center;
@@ -28,13 +26,19 @@ export const FormContainer = styled.div<FormContainerProps>`
         font-size: 2rem;
         font-weight: 600;
         font-family: var(--font-Inter);
-        color: ${({ theme }) => theme['Pale-Silver']};
+        color: ${({ theme }) => theme['card-button']};
       }
 
       > span {
         > svg {
+          display: flex;
+          margin-bottom: 0.3rem;
           font-size: 2rem;
           color: ${({ theme }) => theme['check-green']};
+        }
+
+        @media (max-width: 768px) {
+          margin-bottom: -0.1rem;
         }
       }
     }
@@ -75,13 +79,13 @@ export const FormContainer = styled.div<FormContainerProps>`
 
         > svg {
           color: ${({ theme, $buttonColorEdit }) =>
-            $buttonColorEdit ? theme['check-green'] : theme['Pale-Silver']};
+            $buttonColorEdit ? theme['check-green'] : theme['card-button']};
         }
       }
 
       > button:last-child > svg {
         color: ${({ theme, $buttonColorEdit }) =>
-          $buttonColorEdit ? theme['button-edit'] : theme['Pale-Silver']};
+          $buttonColorEdit ? theme['button-edit'] : theme['card-button']};
 
         transition: color 0.2 ease-in-out;
 

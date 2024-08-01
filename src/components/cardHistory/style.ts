@@ -1,7 +1,6 @@
 import { styled } from 'styled-components'
 
 export const CardContainer = styled.section`
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 10px;
   cursor: pointer;
   transition: filter 0.2s ease-in-out;
 
@@ -24,7 +23,7 @@ export const CardContainer = styled.section`
       font-size: 1.8rem;
       font-weight: 600;
       font-family: var(--font-Roboto);
-      color: ${({ theme }) => theme['Pale-Silver']};
+      color: ${({ theme }) => theme['card-button']};
     }
 
     > div {
@@ -36,12 +35,13 @@ export const CardContainer = styled.section`
         font-size: 1.3rem;
         font-weight: 400;
         font-family: var(--font-Roboto);
+        color: ${({ theme }) => theme['card-button']};
       }
     }
   }
 
   > div:last-child {
-    background-color: ${({ theme }) => theme['Pale-Silver']};
+    background-color: ${({ theme }) => theme['Chinese-White']};
     color: ${({ theme }) => theme['Charcoal-Blue']};
     padding: 1.5rem 2rem;
     border-radius: 0 0 1.5rem 1.5rem;

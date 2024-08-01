@@ -17,14 +17,13 @@ export const CompanyDataContainer = styled.section`
   }
 
   .query-cnpj {
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 10px;
     margin-bottom: 4rem;
 
     > h2 {
       font-size: 2.2rem;
       font-weight: 600;
       font-family: var(--font-Inter);
-      color: ${({ theme }) => theme['Pale-Silver']};
+      color: ${({ theme }) => theme['card-button']};
       background-color: ${({ theme }) => theme['Slate-Blue']};
       padding: 1.5rem 2rem;
       border-radius: 1.5rem 1.5rem 0 0;

@@ -1,19 +1,20 @@
-export const defaultTheme = {
-  'Midnight-Blue': '#222B45',
+export const blackTheme = {
+  'Midnight-Blue': '#CEC8C8',
+  'Dark-Space-Blue': '#BAB3B3',
+  'Pale-Silver': '#1A2138',
+  'Morning-Blue': '#1A2138',
   'consult-button': `#222B45`,
-  'Dark-Space-Blue': '#151A30',
-  'Dark-Space-Blue-opacity': 'rgba(21, 26, 48, 0.9)',
+  'white-color': 'rgba(8, 20, 57, 0.7)',
+  'card-button': '#E0DCDC',
+
+  'Dark-Space-Blue-opacity': 'rgba(206, 200, 200, 0.95)',
   'Charcoal-Blue': '#1A2138',
   'Slate-Blue': '#435075',
-  'Pale-Silver': '#CEC8C8',
   'Pale-Silver-50': 'rgba(206, 200, 200, 0.5)',
   'steel-blue': '#43485B',
   'Chinese-White': '#E0DCDC',
-  'Morning-Blue': '#909A99',
-  'white-color': '#ffff',
   'Light-Gray': '#f9f9f9',
   'check-green': '#5BBB7C',
   'button-edit': '#FAB70B',
   'check-red': '#D3555C',
-  'card-button': '#E0DCDC',
 }

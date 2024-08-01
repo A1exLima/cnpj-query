@@ -33,7 +33,6 @@ export const Content = styled.article`
     margin-bottom: 2rem;
     border-radius: 1.5rem;
     padding: 1.5rem;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 10px;
 
     transition: filter 0.2s ease-in-out;
 

@@ -11,6 +11,7 @@ export const BannerAndCnpEntryContainer = styled.section`
   padding: 4rem;
   background-color: ${({ theme }) => theme['Midnight-Blue']};
   margin-top: 4rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 15px;
 
   display: flex;
   align-items: center;
@@ -61,6 +62,7 @@ export const CnpjEntry = styled.section<CnpjEntryProps>`
   padding: 2.5rem;
   background-color: ${({ theme }) => theme['Chinese-White']};
   border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 15px;
 
   display: flex;
   flex-direction: column;
@@ -108,6 +110,18 @@ export const CnpjEntry = styled.section<CnpjEntryProps>`
     font-family: var(--font-Roboto);
     color: ${({ theme, $checkIfCnpjExists }) =>
       $checkIfCnpjExists ? theme['Charcoal-Blue'] : theme['check-red']};
+
+    animation: blink 1s 2;
+
+    @keyframes blink {
+      0%,
+      100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+    }
   }
 
   > div {
@@ -187,7 +201,7 @@ export const CnpjEntry = styled.section<CnpjEntryProps>`
     align-items: center;
     justify-content: center;
 
-    background-color: ${({ theme }) => theme['Midnight-Blue']};
+    background-color: ${({ theme }) => theme['consult-button']};
     border: none;
     margin-top: 1.5rem;
     width: 15rem;

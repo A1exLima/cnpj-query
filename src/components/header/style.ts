@@ -7,6 +7,25 @@ export const HeaderContainer = styled.header`
   width: 100%;
   background: ${({ theme }) => theme['Midnight-Blue']};
   box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 10px;
+
+  .switch-mode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > svg {
+      cursor: pointer;
+      font-size: 2.4rem;
+      color: ${({ theme }) => theme['Pale-Silver']};
+
+      transition: all 0.4s ease-in-out;
+
+      &:hover {
+        transform: scale(1.1);
+        filter: brightness(150%);
+      }
+    }
+  }
 `
 
 export const Content = styled.div`
@@ -60,6 +79,7 @@ export const Nav = styled.nav`
   }
 
   > ul {
+    padding-right: 2rem;
     display: flex;
     align-items: center;
     gap: 1.5rem;
@@ -131,7 +151,7 @@ export const MenuSideBar = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 2.5rem;
 
     > a {
       color: ${({ theme }) => theme['Pale-Silver']};

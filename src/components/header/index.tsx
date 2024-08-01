@@ -6,15 +6,24 @@ import {
   Nav,
   SideBar,
 } from './style'
-import { NavLink } from 'react-router-dom'
-import { ImOffice } from 'react-icons/im'
-import { IoMenu, IoClose } from 'react-icons/io5'
+
 import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
+
+import { ImOffice, ImSun } from 'react-icons/im'
+import { IoMenu, IoClose } from 'react-icons/io5'
+import { FaMoon } from 'react-icons/fa'
+
+interface HeaderProps {
+  toggleTheme: () => void
+}
 
 // Componente de cabeçalho
-export function Header() {
+export function Header({ toggleTheme }: HeaderProps) {
   // Estado para controlar se o menu está aberto ou fechado
   const [menuOpen, setMenuOpen] = useState<boolean>(false)
+
+  const [stateButton, setStateButton] = useState(false)
 
   // Função para alternar o estado do menu entre aberto e fechado
   const toggleMenu = () => {
@@ -24,6 +33,11 @@ export function Header() {
   // Função para fechar o menu
   const waitAndCloseMenu = () => {
     setMenuOpen(false)
+  }
+
+  const switchMode = () => {
+    setStateButton((prevState) => !prevState)
+    toggleTheme()
   }
 
   // Renderização do componente
@@ -39,7 +53,6 @@ export function Header() {
           </div>
         </Brand>
 
-        {/* Navegação principal */}
         <Nav>
           <ul>
             <NavLink to="/" onClick={waitAndCloseMenu}>
@@ -49,6 +62,14 @@ export function Header() {
               <li>Histórico</li>
             </NavLink>
           </ul>
+
+          <div className="switch-mode">
+            {stateButton ? (
+              <FaMoon onClick={switchMode} title="Modo escuro" />
+            ) : (
+              <ImSun onClick={switchMode} title="Modo claro" />
+            )}
+          </div>
         </Nav>
 
         {/* Barra lateral de navegação para dispositivos móveis */}
@@ -64,6 +85,14 @@ export function Header() {
           {/* Menu lateral que aparece quando o menu está aberto */}
           <MenuSideBar className={`${menuOpen ? 'menu-open' : ''}`}>
             <ul>
+              <div className="switch-mode">
+                {stateButton ? (
+                  <FaMoon onClick={switchMode} title="Modo escuro" />
+                ) : (
+                  <ImSun onClick={switchMode} title="Modo claro" />
+                )}
+              </div>
+
               <NavLink to="/" onClick={waitAndCloseMenu}>
                 <li>Home</li>
               </NavLink>

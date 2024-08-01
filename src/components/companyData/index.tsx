@@ -31,9 +31,13 @@ export function CompanyData({
   return (
     <CompanyDataContainer>
       <div>
-        <p>{`Criado: ${data.dateAndTimeCreated}h`}</p>
+        <p>
+          <strong>Criado:</strong> {`${data.dateAndTimeCreated}h`}
+        </p>
         {data.updatedDateAndTime && (
-          <p>{`Editado: ${data.updatedDateAndTime}`}</p>
+          <p>
+            <strong>Editado:</strong> {` ${data.updatedDateAndTime}h`}
+          </p>
         )}
       </div>
 
