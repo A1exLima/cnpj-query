@@ -67,7 +67,7 @@ export function CompanyData({
         <Form
           data={data.cnae}
           nameCard={'cnae'}
-          title="CNAE - Classificação Nacional de Atividades Econômicas"
+          title="CNAE"
           saveFormDataToLocalStorage={saveFormDataToLocalStorage}
           isEditing={editingForm === 'cnae'}
           onEditButtonClick={() => handleEditButtonClick('cnae')}

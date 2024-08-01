@@ -78,7 +78,16 @@ export function Form({
         <form onSubmit={handleSubmit}>
           <div className="title-and-buttons">
             <div>
-              <h2>{title}</h2>
+              <h2
+                title={
+                  nameCard === 'cnae'
+                    ? 'Classificação Nacional das Atividades Econômicas.'
+                    : ''
+                }
+              >
+                {title}
+              </h2>
+
               <span>{confirmSave ? <FaCheck /> : ''}</span>
             </div>
 
