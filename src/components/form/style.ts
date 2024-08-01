@@ -13,8 +13,11 @@ export const FormContainer = styled.div<FormContainerProps>`
     align-items: center;
     justify-content: space-between;
     padding: 1.6rem 2rem;
+    border-radius: 1.5rem 1.5rem 0 0;
 
     background-color: ${({ theme }) => theme['Slate-Blue']};
+    border-left: 1px solid ${({ theme }) => theme['Dark-Space-Blue']};
+    border-right: 1px solid transparent;
 
     > div:first-child {
       display: flex;
@@ -91,6 +94,7 @@ export const FormContainer = styled.div<FormContainerProps>`
 
   .container-inputs {
     background-color: ${({ theme }) => theme['Chinese-White']};
+    border-radius: 0 0 1.5rem 1.5rem;
 
     display: grid;
     grid-template-columns: ${({ $displayGrid }) =>
@@ -103,8 +107,8 @@ export const FormContainer = styled.div<FormContainerProps>`
       display: flex;
       gap: 1rem;
 
-      border-bottom: 1px solid ${({ theme }) => theme['Slate-Blue']};
-      border-right: 1px solid ${({ theme }) => theme['Slate-Blue']};
+      border-bottom: 1px solid ${({ theme }) => theme['Dark-Space-Blue']};
+      border-left: 1px solid ${({ theme }) => theme['Dark-Space-Blue']};
 
       > label {
         white-space: nowrap;

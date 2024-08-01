@@ -24,9 +24,14 @@ export function CardHistory({ data }: CardHistoryProps) {
       <div>
         <h3>EMPRESA CONSULTADA:</h3>
         <div>
-          <p>{`Criado: ${data.dateAndTimeCreated}h`}</p>
+          <p>
+            <strong>Criado: </strong>
+            {`${data.dateAndTimeCreated}h`}
+          </p>
           {data.updatedDateAndTime ? (
-            <p>{`Editado: ${data.updatedDateAndTime}h`}</p>
+            <p>
+              <strong>Editado:</strong> {`${data.updatedDateAndTime}h`}
+            </p>
           ) : (
             ''
           )}
@@ -36,7 +41,8 @@ export function CardHistory({ data }: CardHistoryProps) {
       <div>
         <div>
           <p>
-            <span>CNPJ: {data.cnpj}</span>
+            <span>CNPJ: </span>
+            {data.cnpj}
           </p>
           <p>
             <span>Razão social: </span>

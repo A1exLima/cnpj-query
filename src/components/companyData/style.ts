@@ -27,9 +27,11 @@ export const CompanyDataContainer = styled.section`
       color: ${({ theme }) => theme['Pale-Silver']};
       background-color: ${({ theme }) => theme['Slate-Blue']};
       padding: 1.5rem 2rem;
+      border-radius: 1.5rem 1.5rem 0 0;
     }
 
     > div {
+      border-radius: 0 0 1.5rem 1.5rem;
       background-color: ${({ theme }) => theme['Chinese-White']};
       padding: 1.5rem 2rem;
 
