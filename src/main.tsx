@@ -8,13 +8,13 @@ import { defaultTheme } from './styles/themes/defaultTheme'
 
 import { BrowserRouter } from 'react-router-dom'
 import { Router } from './routes'
-import { blackTheme } from './styles/themes/blackTheme'
+import { lightTheme } from './styles/themes/blackTheme'
 
 const Application = () => {
   const [theme, setTheme] = useState(defaultTheme)
 
   const toggleTheme = () => {
-    setTheme(theme === defaultTheme ? blackTheme : defaultTheme)
+    setTheme(theme === defaultTheme ? lightTheme : defaultTheme)
   }
 
   return (

@@ -1,4 +1,4 @@
-export const blackTheme = {
+export const lightTheme = {
   'Midnight-Blue': '#CEC8C8',
   'Dark-Space-Blue': '#BAB3B3',
   'Pale-Silver': '#1A2138',
@@ -10,7 +10,7 @@ export const blackTheme = {
   'Dark-Space-Blue-opacity': 'rgba(206, 200, 200, 0.95)',
   'Charcoal-Blue': '#1A2138',
   'Slate-Blue': '#435075',
-  'Pale-Silver-50': 'rgba(206, 200, 200, 0.5)',
+  'Pale-Silver-50': 'rgba(8, 20, 57, 0.2)',
   'steel-blue': '#43485B',
   'Chinese-White': '#E0DCDC',
   'Light-Gray': '#f9f9f9',
