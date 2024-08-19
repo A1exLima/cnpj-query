@@ -3,16 +3,10 @@ import { Outlet } from 'react-router-dom'
 import { Header } from '../components/header'
 import { Footer } from '../components/footer'
 
-interface LayoutDefaultProps {
-  toggleTheme: () => void
-}
-
-export function LayoutDefault({
-  toggleTheme,
-}: LayoutDefaultProps): JSX.Element {
+export function LayoutDefault() {
   return (
     <ContainerLayoutDefault>
-      <Header toggleTheme={toggleTheme} />
+      <Header />
       <Outlet />
       <Footer />
     </ContainerLayoutDefault>

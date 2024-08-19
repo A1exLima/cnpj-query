@@ -4,14 +4,10 @@ import { Home } from '../pages/home'
 import { QueryCnpj } from '../pages/queryCnpj'
 import { History } from '../pages/history'
 
-interface RouterProps {
-  toggleTheme: () => void
-}
-
-export function Router({ toggleTheme }: RouterProps) {
+export function Router() {
   return (
     <Routes>
-      <Route path="/" element={<LayoutDefault toggleTheme={toggleTheme} />}>
+      <Route path="/" element={<LayoutDefault />}>
         <Route index element={<Home />} />
         <Route path="query-cnpj/:id" element={<QueryCnpj />} />
         <Route path="history" element={<History />} />

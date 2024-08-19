@@ -102,6 +102,7 @@ export function Home() {
         {/* Mensagem de aviso sobre o uso dos dados */}
         <WarningMessage>
           <p>
+            
             As informações desta página são públicas e podem ser utilizadas por
             todos, sem necessidade de autorização. O compartilhamento destas
             informações está em conformidade com o Decreto nº 8.777/2016

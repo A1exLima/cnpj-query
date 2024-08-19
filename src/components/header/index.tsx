@@ -10,20 +10,20 @@ import {
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
+import { useTheme } from '../../hooks/changeTheme'
+
 import { ImOffice, ImSun } from 'react-icons/im'
 import { IoMenu, IoClose } from 'react-icons/io5'
 import { FaMoon } from 'react-icons/fa'
 
-interface HeaderProps {
-  toggleTheme: () => void
-}
-
 // Componente de cabeçalho
-export function Header({ toggleTheme }: HeaderProps) {
+export function Header() {
   // Estado para controlar se o menu está aberto ou fechado
   const [menuOpen, setMenuOpen] = useState<boolean>(false)
-
   const [stateButton, setStateButton] = useState(false)
+
+  // Contexto para alterar o tema do site
+  const { toggleTheme } = useTheme()
 
   // Função para alternar o estado do menu entre aberto e fechado
   const toggleMenu = () => {
